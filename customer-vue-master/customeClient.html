@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>客服</title>
+
+    <link href="bootstrap.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding: 20px;
+        }
+        
+        #console {
+            height: 400px;
+            overflow: auto;
+        }
+        
+        .username-msg {
+            color: orange;
+        }
+        
+        .connect-msg {
+            color: green;
+        }
+        
+        .disconnect-msg {
+            color: red;
+        }
+        
+        .send-msg {
+            color: #888
+        }
+    </style>
+
+
+    <script src="js/socket.io/socket.io.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+
+    <!-- <script>
+        var app_72b76c84_9c47_49d6_9caa_634ad54dd95b = {
+                init: function() {
+
+                },
+                clientid: '',
+                targetClientId: '',
+                msg: '',
+                //1:clientid,2:targetClientId
+                flag: 0,
+                saveUserChatHistory: function(clientid, targetClientId, msg, flag) {
+                    var chatkey = "chat_" + clientid + "_" + targetClientId;
+                    var chatHistoryListStr = localStorage.getItem(chatkey);
+                    var chatHistoryList = [];
+                    if (chatHistoryListStr != null && chatHistoryListStr != undefined) {
+                        chatHistoryList = JSON.parse(chatHistoryListStr)
+                    } else {
+                        chatHistoryList = [];
+                    }
+
+                    var singleMsg = new this.ChatHistory(clientid, targetClientId, msg, flag);
+                    chatHistoryList.push(singleMsg);
+                    localStorage.setItem(chatkey, JSON.stringify(chatHistoryList));
+
+                },
+                getUserChatHistory: function(clientid, targetClientId) {
+                    var chatkey = "chat_" + clientid + "_" + targetClientId;
+                    var chatHistoryListStr = localStorage.getItem(chatkey);
+                    var chatHistoryList;
+                    if (chatHistoryListStr != null && chatHistoryListStr != undefined) {
+                        chatHistoryList = JSON.parse(chatHistoryListStr)
+                    } else {
+                        chatHistoryList = [];
+                    }
+
+                    return chatHistoryList;
+                },
+                ChatHistory: function(clientid, targetClientId, msg, flag) {
+                    this.clientid = clientid;
+                    this.targetClientId = targetClientId;
+                    this.msg = msg;
+                    this.flag = flag;
+                }
+            }
+            // 初始化用户聊天
+        function initChatHistory() {
+            var clientid = window.sessionStorage.getItem("07b2443a-9da0-4321-882e-c5d72c22961d");
+            var targetClientId = window.sessionStorage.getItem("80f17184-f477-46fb-a749-015eaf063a69");
+            var chatHistoryList = app_72b76c84_9c47_49d6_9caa_634ad54dd95b.getUserChatHistory(clientid, targetClientId);
+            for (let index = 0; index < chatHistoryList.length; index++) {
+                var singleMsg = chatHistoryList[index];
+                // alert("singleMsg.flag = " + singleMsg.flag)
+                if (singleMsg.flag == 1) {
+                    // alert("clientid = " + clientid)
+                    var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+                    var element = $("<div>" + currentTime + ' <span class="username-msg">' + clientid + ':</span> ' + singleMsg.msg + "</div>");
+                    $('#wjw').prepend(element);
+                } else {
+                    // alert("targetClientId = " + targetClientId)
+                    var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+                    var element = $("<div>" + currentTime + ' <span class="username-msg">' + targetClientId + ':</span> ' + " " + singleMsg.msg + "</div>");
+                    $('#wjw').prepend(element);
+                }
+
+
+            }
+        }
+    </script> -->
+    <script>
+        var userName = 'user' + Math.floor((Math.random() * 1000) + 1);
+
+        var clientid = 'testclient1';
+        var targetClientId = "";
+
+        // if (clientid == null || clientid == undefined) {
+        //     var clientid = 'user' + Math.floor((Math.random() * 1000) + 1);
+        //     localStorage.setItem("07b2443a-9da0-4321-882e-c5d72c22961d", clientid);
+        // }
+
+        var socket = io.connect('http://localhost:8081?clientid=' + clientid);
+
+        socket.on('connect', function() {
+            output('<span class="connect-msg">有用户上线了!</span>');
+        });
+
+        socket.on('messageevent', function(data) {
+            targetClientId = data.sourceClientId;
+            output('<span class="username-msg">' + data.sourceClientId + ':</span> ' + data.msgContent);
+            // localStorage.setItem("80f17184-f477-46fb-a749-015eaf063a69", data.sourceClientId);
+            // if (data.sourceClientId == clientid) {
+            //     app_72b76c84_9c47_49d6_9caa_634ad54dd95b.saveUserChatHistory(clientid, data.sourceClientId, data.msgContent, 1);
+            // } else {
+            //     targetClientId = data.sourceClientId;
+            //     app_72b76c84_9c47_49d6_9caa_634ad54dd95b.saveUserChatHistory(clientid, data.sourceClientId, data.msgContent, 2);
+            // }
+        });
+
+        socket.on('disconnect', function() {
+            output('<span class="disconnect-msg">已下线!</span>');
+        });
+
+        function sendDisconnect() {
+            socket.disconnect();
+        }
+
+        function sendMessage() {
+            var message = $('#msg').val();
+            $('#msg').val('');
+
+            var jsonObject = {
+                "sourceClientId": clientid,
+                "targetClientId": targetClientId,
+                "msgType": 'chat',
+                "msgContent": message
+            };
+            socket.emit('messageevent', jsonObject);
+        }
+
+        function output(message) {
+            var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+            var element = $("<div>" + currentTime + " " + message + "</div>");
+            $('#console').prepend(element);
+        }
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 13) {
+                $('#send').click();
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>客服</h1>
+
+    <br/>
+
+    <div id="console" class="well">
+    </div>
+
+    <form class="well form-inline" onsubmit="return false;">
+        <input id="msg" class="input-xlarge" type="text" placeholder="Type something..." />
+        <button type="button" onClick="sendMessage()" class="btn" id="send">Send</button>
+        <button type="button" onClick="sendDisconnect()" class="btn">Disconnect</button>
+    </form>
+
+
+
+</body>
+
+</html>

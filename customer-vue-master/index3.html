@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>访客</title>
+
+    <link href="bootstrap.css" rel="external nofollow" rel="stylesheet">
+
+    <style>
+        body {
+            padding: 20px;
+        }
+        
+        #console {
+            height: 400px;
+            overflow: auto;
+        }
+        
+        .username-msg {
+            color: orange;
+        }
+        
+        .connect-msg {
+            color: green;
+        }
+        
+        .disconnect-msg {
+            color: red;
+        }
+        
+        .send-msg {
+            color: #888
+        }
+    </style>
+
+
+    <script src="js/socket.io/socket.io.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+
+    <script>
+        var app_72b76c84_9c47_49d6_9caa_634ad54dd95b = {
+                init: function() {
+
+                },
+                clientid: '',
+                targetClientId: '',
+                msg: '',
+                //1:clientid,2:targetClientId
+                flag: 0,
+                saveUserChatHistory: function(clientid, targetClientId, msg, flag) {
+                    var chatkey = "chat_" + clientid;
+                    var chatHistoryListStr = sessionStorage.getItem(chatkey);
+                    var chatHistoryList = [];
+                    if (chatHistoryListStr != null && chatHistoryListStr != undefined) {
+                        chatHistoryList = JSON.parse(chatHistoryListStr)
+                    } else {
+                        chatHistoryList = [];
+                    }
+
+                    var singleMsg = new this.ChatHistory(clientid, null, msg, flag);
+                    chatHistoryList.push(singleMsg);
+                    sessionStorage.setItem(chatkey, JSON.stringify(chatHistoryList));
+
+                },
+                getUserChatHistory: function(clientid, targetClientId) {
+                    var chatkey = "chat_" + clientid;
+                    var chatHistoryListStr = sessionStorage.getItem(chatkey);
+                    var chatHistoryList;
+                    if (chatHistoryListStr != null && chatHistoryListStr != undefined) {
+                        chatHistoryList = JSON.parse(chatHistoryListStr)
+                    } else {
+                        chatHistoryList = [];
+                    }
+
+                    return chatHistoryList;
+                },
+                removeUserChatHistory: function(clientid, targetClientId) {
+                    var chatkey = "chat_" + clientid;
+                    sessionStorage.removeItem(chatkey);
+                },
+                ChatHistory: function(clientid, targetClientId, msg, flag) {
+                    this.clientid = clientid;
+                    this.targetClientId = targetClientId;
+                    this.msg = msg;
+                    this.flag = flag;
+                }
+            }
+            // 初始化用户聊天
+        function initChatHistory() {
+            var clientid = localStorage.getItem("cd85c4bc-1986-4a9c-8524-6ee1174436e1");
+            // var targetClientId = localStorage.getItem("e48065da-987e-4e51-9d7c-a8f46beabefa");
+            var chatHistoryList = app_72b76c84_9c47_49d6_9caa_634ad54dd95b.getUserChatHistory(clientid, null);
+            for (let index = 0; index < chatHistoryList.length; index++) {
+                var singleMsg = chatHistoryList[index];
+                // alert("singleMsg.flag = " + singleMsg.flag)
+                if (singleMsg.flag == 1) {
+                    // alert("clientid = " + clientid)
+                    var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+                    var element = $("<div>" + currentTime + ' <span class="username-msg">' + clientid + ':</span> ' + singleMsg.msg + "</div>");
+                    $('#wjw').prepend(element);
+                } else {
+                    // alert("targetClientId = " + targetClientId)
+                    var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+                    var element = $("<div>" + currentTime + ' <span class="username-msg">' + targetClientId + ':</span> ' + " " + singleMsg.msg + "</div>");
+                    $('#wjw').prepend(element);
+                }
+
+
+            }
+        }
+
+        //生成xx位，16进制的UUID
+        function getUuid(len, radix) {           
+            var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');           
+            var uuid = [],
+                i;           
+            radix = radix || chars.length;           
+            if (len) {            
+                for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];           
+            } else {            
+                var r;            
+                uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';            
+                uuid[14] = '4';            
+                for (i = 0; i < 36; i++) {             
+                    if (!uuid[i]) {              
+                        r = 0 | Math.random() * 16;              
+                        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];             
+                    }            
+                }           
+            }           
+            return uuid.join('');         
+        };
+    </script>
+    <script>
+        $(function() {
+            initChatHistory();
+        })
+        var clientid = localStorage.getItem("cd85c4bc-1986-4a9c-8524-6ee1174436e1");
+        var targetClientId = 'testclient1';
+
+        if (clientid == null || clientid == undefined) {
+            var clientid = getUuid(36, 16);
+            localStorage.setItem("cd85c4bc-1986-4a9c-8524-6ee1174436e1", clientid);
+        }
+
+        var socket = io.connect('http://localhost:8081?clientid=' + clientid);
+
+        socket.on('connect', function() {
+            output('<span class="connect-msg">欢迎使用最新的netty-socketIO设备!</span>');
+        });
+
+        socket.on('messageevent', function(data) {
+            output('<span class="username-msg">' + data.sourceClientId + ':</span> ' + data.msgContent);
+            localStorage.setItem("e48065da-987e-4e51-9d7c-a8f46beabefa", data.sourceClientId);
+            if (data.sourceClientId == clientid) {
+                app_72b76c84_9c47_49d6_9caa_634ad54dd95b.saveUserChatHistory(clientid, null, data.msgContent, 1);
+            } else {
+                app_72b76c84_9c47_49d6_9caa_634ad54dd95b.saveUserChatHistory(clientid, null, data.msgContent, 2);
+            }
+        });
+        socket.on('disconnect', function() {
+            output('<span class="disconnect-msg">已下线!</span>');
+            alert("==clientid +++++");
+            localStorage.removeItem("cd85c4bc-1986-4a9c-8524-6ee1174436e1");
+            app_72b76c84_9c47_49d6_9caa_634ad54dd95b.removeUserChatHistory(clientid, null);
+        });
+
+        function sendDisconnect() {
+            socket.disconnect();
+        }
+
+        function sendMessage() {
+            var message = $('#msg').val();
+            $('#msg').val('');
+
+            var jsonObject = {
+                "sourceClientId": clientid,
+                "targetClientId": targetClientId,
+                "msgType": 'chat',
+                "msgContent": message
+            };
+            socket.emit('messageevent', jsonObject);
+        }
+
+        function output(message) {
+            var currentTime = "<span class='time'>" + moment().format('HH:mm:ss.SSS') + "</span>";
+            var element = $("<div>" + currentTime + " " + message + "</div>");
+            $('#wjw').prepend(element);
+            // alert($('#wjw').html())
+        }
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 13) {
+                $('#send').click();
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>访客</h1>
+
+    <br/>
+
+    <div id="wjw" class="well">
+    </div>
+
+    <form class="well form-inline" onsubmit="return false;">
+        <input id="msg" class="input-xlarge" type="text" placeholder="Type something..." />
+        <button type="button" onClick="sendMessage()" class="btn" id="send">Send</button>
+        <button type="button" onClick="sendDisconnect()" class="btn">Disconnect</button>
+    </form>
+</body>
+
+</html>
