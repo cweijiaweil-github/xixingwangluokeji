@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE =edge,chrome =1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="description" content="新兴科技">
+		<meta name="keywords" content="新兴科技">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>在线客服系统</title>
+		<link rel="stylesheet" type="text/css" href="./css/pcClientDialog.css" />
+		<script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="./js/pcClientDialog.js"></script>
+	</head>
+	<!--[if lt IE 9]>
+	    <script type="text/javascript">
+	        var str = "您使用的浏览器过于陈旧，无法正常浏览，";
+	        var str2 = "建议您 <a href='https://bestvpn.org/outdatedbrowser/zh-cn' target='_blank' style='color:#6ED1CF;'>升级浏览器</a>,"
+	                + "以获取最佳显示效果。";
+	        document.writeln("<pre style='text-align:center;color: #1E5495;background-color:#FFFFFF; height:100%;border:0;position:fixed;top:0;left:0;width:100%;z-index:1234'>" +
+	                "<h2 style='padding-top:200px;margin:0'><strong>" + str + "<br/></strong></h2><h2>" +str2);
+	        document.execCommand("Stop");
+	</script>
+	<![endif]-->
+	<body>
+		<div class="wrapper">
+			<!-- 头部 -->
+			<div class="head">
+				<div class="head_row">
+					<div class="head_logo">logo</div>
+					<div class="head_closePage"></div>
+				</div>
+			</div>
+			<!-- 页面主体 -->
+			<div class="main">
+				<div class="dialog">
+					<!-- 对话聊天框框 -->
+					<div class="dialog_wrap">
+						<!-- 对话内容列表 -->
+						<div class="dialog_wrap_box">
+							<!-- 查看更多消息 -->
+							<div class="dialog_history">
+								<span class="dialog_history_moreInfo">查看更多消息</span>
+							</div>
+							<!-- 开场白 -->
+							<div class="dialog_prologue">
+								<h3>您好欢迎光临</h3>
+								<img src="images/advert.png" />
+								<div class="dialog_prologue_card">
+									<p>感谢配合！111333</p>
+									<div>点击此处：<a href="javascript:;">申请开通账号</a></div>
+								</div>
+							</div>
+							<!-- 系统提示消息 -->
+							<div class="dialog_info_box">
+								<p class="otherText fileTips">您好，由于很久没有收到您的消息，系统自动结束了对话。</p>
+							</div>
+							<!-- 获取天数 -->
+							<div class="dialog_day">
+								<p class="otherText dialog_dayNum">今天</p>
+							</div>
+							<!-- 记录电话 -->
+							<div id="recordCall" class="dialog_info_box">
+								<p class="otherText dayNum">您的电话已被记录，请耐心等待，稍后我们的客服人员将与您联系</p>
+							</div>
+							<!-- 差评提示消息 -->
+							<div class="dialog_info_box">
+								<p class="otherText succeed">您给出了<span class="evaluate fail-red">差评</span></p>
+							</div>
+							<!-- 中评提示消息 -->
+							<div class="dialog_info_box">
+								<p class="otherText succeed">您给出了<span class="evaluate pass-orange">中评</span></p>
+							</div>
+							<!-- 好评提示消息 -->
+							<div class="dialog_info_box">
+								<p class="otherText succeed">您给出了<span class="evaluate excellent-green">好评</span></p>
+							</div>
+							<!-- 文件大小超过系统限制【6M】 -->
+							<div class="dialog_info_box">
+								<p class="otherText fileTips">文件大小超过系统限制【6M】</p>
+							</div>
+							<!-- 左边消息 -->
+							<div class="dialog_left">
+								<!-- 左边头像 -->
+								<img class="dialog_user_profile" src="./images/kefu.png" />
+								<!-- 消息 -->
+								<div class="dialog_left_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文字消息 -->
+									<div class="dialog-top">
+										<div class="dialog_left_card">
+											<div class="textMess">您好，很高兴为您服务！</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 右边消息 -->
+							<div class="dialog_right">
+								<!-- 消息 -->
+								<div class="dialog_right_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文字消息 -->
+									<div class="dialog-top">
+										<div class="dialog_right_card skinColor">
+											<div class="textMess">您好，很高兴为您服务！</div>
+										</div>
+										<span class="notSent"></span>
+									</div>
+								</div>
+							</div>
+							<!-- 左边消息 -->
+							<div class="dialog_left">
+								<!-- 左边头像 -->
+								<img class="dialog_user_profile" src="./images/kefu.png" />
+								<!-- 消息 -->
+								<div class="dialog_left_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 语音消息 -->
+									<div class="dialog-top">
+										<div class="dialog_left_card">
+											<!-- 语音消息 -->
+											<div class="voiceMess">
+												<img src="./images/left-sound.png" />
+												<!-- <div class="rightTime">
+													<img src="images/left-sound.png">
+												</div> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 左边文档消息 -->
+							<div class="dialog_left">
+								<img class="dialog_user_profile" src="./images/kefu.png" />
+								<div class="dialog_left_box">
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文件消息-->
+									<div class="dialog-top">
+										<div class="dialog_left_card dialog_left_file">
+											<div class="dialog_imgtext">
+												<div class="imgtext-top">
+													<div class="imgtext-file">
+														<div>XX科技文档.doc<i>1.3M</i></div>
+														<p>24小时候过期</p>
+													</div>
+													<img class="imgtext-type" src="./images/world.png" />
+												</div>
+												<div class="imgtext-bottom">
+													<a class="imgtext_download">下载</a>
+													<!-- <span class="imgtext_downloaded">已下载</span> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 右边消息 -->
+							<div class="dialog_right">
+								<!-- 消息 -->
+								<div class="dialog_right_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文件消息 -->
+									<div class="dialog-top">
+										<div class="dialog_right_card dialog_right_file">
+											<div class="dialog_imgtext">
+												<div class="imgtext-top">
+													<div class="imgtext-file">
+														<div>XX科技有限公司介绍-系统功能介绍.doc<i>1.3M</i></div>
+														<p>24小时候过期</p>
+													</div>
+													<img class="imgtext-type" src="./images/pdf.png" />
+												</div>
+												<div class="imgtext-bottom">
+													<a class="imgtext_download">下载</a>
+													<!-- <span class="imgtext_downloaded">已下载</span> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 左边文档消息 -->
+							<div class="dialog_left">
+								<img class="dialog_user_profile" src="./images/kefu.png" />
+								<div class="dialog_left_box">
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文件消息-->
+									<div class="dialog-top">
+										<div class="dialog_left_card dialog_left_file">
+											<div class="attachedText">
+												<div class="attachedText-font attachedText-tit">欢迎访问新兴科技在线客服系统 我是您的专属人工客服：<span>魏某人</span></div>
+												<div class="attachedText-font attachedText-txt">微信、电话同步：18804289881 QQ:
+													932128571您可以扫描屏幕下方二维码，获取测试账号和功能资料。</div>
+												<img class="attachedText-font attachedText-img" src="./images/qr.png" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 右边消息 -->
+							<div class="dialog_right">
+								<!-- 消息 -->
+								<div class="dialog_right_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文字消息 -->
+									<div class="dialog-top">
+										<div class="dialog_right_card">
+											<!-- 语音消息 -->
+											<div class=" voiceMess">
+												<img src="./images/right-sound.png" />
+												<!-- <div class="rightTime">
+													<img src="images/right-sound.png">
+												</div> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 左边图片消息 -->
+							<div class="dialog_left">
+								<img class="dialog_user_profile" src="./images/kefu.png" />
+								<div class="dialog_left_box">
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<div class="dialog-top">
+										<div class="dialog_left_card dialog_left_file">
+											<!-- 图片消息 -->
+											<div class="imageMess">
+												<img class="maxImg" src="./images/timg.jpg" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 右边消息 -->
+							<div class="dialog_right">
+								<!-- 消息 -->
+								<div class="dialog_right_box">
+									<!-- 消息时间 -->
+									<p class="dialog-time"><span>wjw</span> 09:33:35</p>
+									<!-- 文字消息 -->
+									<div class="dialog-top">
+										<div class="dialog_right_card dialog_right_file">
+											<!-- 视频消息-->
+											<div class="videoMess">
+												<img src="./images/timg.jpg" />
+												<i id="videoPlay" class="video-btn" src="http://test.miduoke.net/Account/100162/files/temps/v_video_8f887db2.mp4"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 对话输入框-->
+					<div class="dialog_input">
+						<!-- 对话聊天框 -->
+						<div class="dialog_dialogue_content">
+							<!-- 自主菜单 -->
+							<div class="dialog-tools" style="display: none;">
+								<!-- 当文字超出时显示左右箭头，点击能够滑动 -->
+								<span class="leftBtn"><i></i></span>
+								<div class="toolNav" id="toolNav">
+									<span>米多客下载地址</span>
+									<span href="javascript:;" target="_blank">申请免费试用账号</span>
+								</div>
+								<span class="rightBtn" id="rightBtn" style="display: none;"><i></i></span>
+							</div>
+							<!-- 表情栏区域 -->
+							<div id="selectk" class="dialog_selectk">
+								<span id="iconEmoji" class="icon icon_emoji" title="表情"></span>
+								<span id="load" class="icon icon_load" title="发送图片"><input type="file" id="images_file" style="display: none;"
+									 accept="image/*"></span>
+								<span id="files" class="icon icon_files" title="发送文件"></span><input type="file" id="upload_file" style="display: none;"
+								 accept="file/*">
+								<span id="evaluate" class="icon icon_evaluate" title="评价"></span>
+								<span id="voiceswitch" class="icon icon_voice voice" title="消息提示音"></span>
+								<!-- <span id="transfer" class="icon icon_transfer" title="转人工" style="display: none;">转人工</span> -->
+								<div class="selectk-right">
+									<div class="phone skinColor skinBorderColor">
+										<input id="blurPhoneValue" class="skinFontColor" type="number" placeholder="请输入电话号码" />
+										<span id="submitPhone" class="phone-btn skinColor"></span>
+									</div>
+									<!-- <div class="transfer skinFontColor">转人工</div> -->
+									<!-- 提示框 -->
+									<div class="tip">
+										<h3>请输入您的号码，我们将立即回电</h3>
+										<div class="tip-info">
+											<p>1.手机请直接输入</p>
+											<p>2.座机请在号码前加上区号</p>
+										</div>
+										<p class="tip-remark">【备注：本次通话全程免费，请您放心拨打】</p>
+									</div>
+								</div>
+							</div>
+
+							<!-- 输入区域 -->
+							<div class="InputArea">
+								<div id="inputAreaValue" class="InputArea-value" contenteditable="true" placeholder="请输入..."></div>
+								<div class="InputArea-btn">
+									<div class="endmess">转人工</div>
+									<div class="send sendGray">
+										<span class="send_btn">发送</span>
+										<span class="splitLine">|</span>
+										<span class="send_pullUp"></span>
+									</div>
+									<!-- 快捷键-->
+									<div class="hotKey">
+										<div class="hotKey-li enterActive">【发送快捷键：Enter】</div>
+										<div class="hotKey-li">【发送快捷键：Ctrl+Enter】</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 表情列表 -->
+							<div id="faceList" class="face">
+								<!-- 表情内容列表 -->
+							</div>
+						</div>
+						<!-- 选择对话或者留言 -->
+						<div class="dialog-timeOut">
+							<div class="dialog-timeOut_content">
+								<ul>
+									<li id="isDialogue">
+										<img src="images/dialogue.png" />
+										<p>继续对话</p>
+									</li>
+									<li id="leaveComments">
+										<img src="images/leaveMess.png" />
+										<p>留言</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- 底部 -->
+					<div class="footer">
+						<p>客服软件由新兴科技提供</p>
+					</div>
+				</div>
+			</div>
+			<!-- 结束对话框 -->
+			<div class="dialog_endDialog">
+				<div class="dialog_endDialog-main">
+					<div class="dialog_endDialog-hd">
+						<p class="dialog_endDialog-title">提示</p>
+					</div>
+					<div class="dialog_endDialog-bd">
+						<span name="dialog_endDialogText">您确定要结束对话吗？</span>
+					</div>
+					<div class="dialog_endDialog-ft">
+						<div class="dialog_cancel">取消</div>
+						<div class="dialog_closeConfirm skinColor" id="confirmOK">确定</div>
+					</div>
+				</div>
+			</div>
+			<!-- 黑色遮罩 -->
+			<div class="mask"></div>
+			<!-- 查看原像素图片 -->
+			<div class="orginialPicture">
+				<span id="closeImage" class="closeVideo">×</span>
+				<img class="orginial-picture" src="./images/timg.jpg">
+			</div>
+			<!--video-->
+			<div class="video">
+				<span id="closeVideo" class="closeVideo">×</span>
+				<video controls="controls" class="video-player" src="./images/video.mp4"></video>
+			</div>
+			<!-- 服务评价 -->
+			<div class="alert">
+				<div class="alert-title">服务评价<span class="close alert-close"><i></i></span></div>
+				<div class="alert-bd">
+					<p>感谢您的咨询，请对本次服务进行评价！</p>
+					<div class="alert-bd_box">
+						<div class="alert-bd_box_list" selected="selected">
+							<img src="./images/praise.png" />
+							<p>好评</p>
+						</div>
+						<div class="alert-bd_box_list">
+							<img src="./images/average-gray.png" />
+							<p>中评</p>
+						</div>
+						<div class="alert-bd_box_list">
+							<img src="./images/badReview-gray.png" />
+							<p>差评</p>
+						</div>
+					</div>
+					<div class="alert-bd_textarea">
+						<textarea placeholder="评价内容（选填）"></textarea>
+					</div>
+				</div>
+				<div class="alert-ft">
+					<button id="submitEvaluation" class="alert-btn skinColor" type="button">提交</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
