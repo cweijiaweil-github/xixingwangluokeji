@@ -125,7 +125,9 @@
         });
 
         socket.on('messageevent', function(data) {
-            targetClientId = data.sourceClientId;
+            if (data.sourceClientId != clientid) {
+                targetClientId = data.sourceClientId;
+            }
             output('<span class="username-msg">' + data.sourceClientId + ':</span> ' + data.msgContent);
             // localStorage.setItem("80f17184-f477-46fb-a749-015eaf063a69", data.sourceClientId);
             // if (data.sourceClientId == clientid) {
@@ -147,7 +149,7 @@
         function sendMessage() {
             var message = $('#msg').val();
             $('#msg').val('');
-
+            // alert("clientid= " + ";" + "targetClientId=" + targetClientId)
             var jsonObject = {
                 "sourceClientId": clientid,
                 "targetClientId": targetClientId,
